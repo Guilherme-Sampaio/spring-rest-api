@@ -1,41 +1,31 @@
 package project.guilherme.controller;
 
-import project.guilherme.entities.ProjectModel;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+import project.guilherme.model.ProjectModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import project.guilherme.repository.ProjectRepository;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/projects")
+@Controller
 public class ProjectController {
-    @Autowired
-    ProjectRepository projectRepository;
+    private ProjectRepository projectRepository;
 
-    @GetMapping()
-    public ResponseEntity<ProjectModel> getProject(Long id) {
-        try {
-            ProjectModel project = projectRepository.getById(id);
-            return project == null ? new ResponseEntity<>(project, HttpStatus.OK)
-                    : new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        } catch (Exception error) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @Autowired
+    public ProjectController(final ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
     }
 
-    @GetMapping(path = "/all")
-    public ResponseEntity<List<ProjectModel>> getProjects() {
-        try {
-            List<ProjectModel> projects = projectRepository.findAll();
-            return projects.isEmpty() ? new ResponseEntity<>(projects, HttpStatus.OK)
-                    : new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        } catch (Exception error) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping(path = "/projects")
+    @ResponseBody
+    public Iterable<ProjectModel> getProjects() {
+        return projectRepository.findAll();
+    }
+
+    @GetMapping(path = "/projects/user/{id}")
+    @ResponseBody
+    public Iterable<ProjectModel> getProjects(@PathVariable Long id) {
+        return projectRepository.findByUserId(id);
     }
 }

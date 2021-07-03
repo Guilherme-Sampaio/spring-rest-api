@@ -1,4 +1,6 @@
-package project.guilherme.entities;
+package project.guilherme.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,6 +10,7 @@ import java.util.Date;
 public class AppointmentModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private long id;
 
     @Column(name = "start_date")
@@ -16,21 +19,40 @@ public class AppointmentModel {
     @Column(name = "finish_date")
     private Date finishDate;
 
-    @Column(name = "user_id")
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserModel user;
 
-    @Column(name = "project_id")
-    private int projectId;
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    @JsonIgnoreProperties({"appointments"})
+    private ProjectModel project;
 
     public AppointmentModel() {
 
     }
 
-    public AppointmentModel(Date startDate, Date finishDate, int userId, int projectId) {
+    public AppointmentModel(Date startDate, Date finishDate, UserModel user, ProjectModel project) {
         this.startDate = startDate;
         this.finishDate = finishDate;
-        this.userId = userId;
-        this.projectId = projectId;
+        this.user = user;
+        this.project = project;
+    }
+
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
+    }
+
+    public ProjectModel getProject() {
+        return project;
+    }
+
+    public void setProject(ProjectModel project) {
+        this.project = project;
     }
 
     public long getId() {
@@ -55,21 +77,5 @@ public class AppointmentModel {
 
     public void setFinishDate(Date finishDate) {
         this.finishDate = finishDate;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
     }
 }
