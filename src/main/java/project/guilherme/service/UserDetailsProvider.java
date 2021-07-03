@@ -28,7 +28,7 @@ public class UserDetailsProvider implements UserDetails {
 
         return new UserDetailsProvider(
                 user.getId(),
-                user.getName(),
+                user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
                 authorities

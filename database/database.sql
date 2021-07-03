@@ -1,14 +1,14 @@
 CREATE TABLE IF NOT EXISTS users (
 	id INT NOT NULL AUTO_INCREMENT,
-	name VARCHAR(100),
+	username VARCHAR(100),
 	email VARCHAR(200),
-	password VARCHAR(50),
+	password VARCHAR(200),
 	PRIMARY KEY(id)
 );
 
-INSERT INTO users (name, email, password) VALUES ('admnistrador', 'admnistrador@gmail.com', 'adm123');
-INSERT INTO users (name, email, password) VALUES ('programador1', 'programador1@gmail.com', 'prog1123');
-INSERT INTO users (name, email, password) VALUES ('programador2', 'programador2@gmail.com', 'prog2123');
+INSERT INTO users (username, email, password) VALUES ('admnistrador', 'admnistrador@gmail.com', '$2a$10$NGRi1LpS.MtE/oakqlwxd./iILhgTGmgHUTo7Q7OMh.YM4RpXYzia');
+INSERT INTO users (username, email, password) VALUES ('programador1', 'programador1@gmail.com', '$2a$10$PF5jSZKo1UjvStBif99zXuzJpEVcXd7zMVyfC/HeuBVHme778z.IW');
+INSERT INTO users (username, email, password) VALUES ('programador2', 'programador2@gmail.com', '$2a$10$1t.VEpbRN.l1nIB.eKPnWelx/hKN9Iz1gaciP5t5/ZoqI/ZEywMWK');
 
 CREATE TABLE IF NOT EXISTS roles (
 	id INT NOT NULL AUTO_INCREMENT,
