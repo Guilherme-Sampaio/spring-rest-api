@@ -1,6 +1,6 @@
 package project.guilherme.model;
 
-import project.guilherme.enums.ERole;
+import project.guilherme.enumeration.ERole;
 
 import javax.persistence.*;
 
