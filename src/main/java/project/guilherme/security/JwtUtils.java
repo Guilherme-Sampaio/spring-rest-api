@@ -1,20 +1,22 @@
 package project.guilherme.security;
 
 import io.jsonwebtoken.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+import project.guilherme.service.LoggerService;
 import project.guilherme.service.UserDetailsProvider;
 
 import java.util.Date;
 
 @Component
 public class JwtUtils {
-    private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
-    private String jwtSecret = "secretTest";
-    private int jwtExpirationMs = 86400000;
+
+    @Value("${guilherme.security.jwtSecret}")
+    private String jwtSecret;
+
+    @Value("${guilherme.security.jwtExpirationMs}")
+    private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
         UserDetailsProvider user = (UserDetailsProvider) authentication.getPrincipal();
@@ -36,15 +38,15 @@ public class JwtUtils {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         } catch (SignatureException e) {
-            logger.error("Invalid JWT signature: {}", e.getMessage());
+            LoggerService.logger("Invalid JWT signature:", e);
         } catch (MalformedJwtException e) {
-            logger.error("Invalid JWT token: {}", e.getMessage());
+            LoggerService.logger("Invalid JWT token:", e);
         } catch (ExpiredJwtException e) {
-            logger.error("JWT token is expired: {}", e.getMessage());
+            LoggerService.logger("JWT token is expired:", e);
         } catch (UnsupportedJwtException e) {
-            logger.error("JWT token is unsupported: {}", e.getMessage());
+            LoggerService.logger("JWT token is unsupported:", e);
         } catch (IllegalArgumentException e) {
-            logger.error("JWT claims string is empty: {}", e.getMessage());
+            LoggerService.logger("JWT claims string is empty:", e);
         }
 
         return false;

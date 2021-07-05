@@ -3,6 +3,7 @@ package project.guilherme.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -14,10 +15,10 @@ public class AppointmentModel {
     private long id;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private Timestamp startDate;
 
     @Column(name = "finish_date")
-    private Date finishDate;
+    private Timestamp finishDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -32,7 +33,7 @@ public class AppointmentModel {
 
     }
 
-    public AppointmentModel(Date startDate, Date finishDate, UserModel user, ProjectModel project) {
+    public AppointmentModel(Timestamp startDate, Timestamp finishDate, UserModel user, ProjectModel project) {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.user = user;
@@ -63,19 +64,19 @@ public class AppointmentModel {
         this.id = id;
     }
 
-    public Date getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
 
-    public Date getFinishDate() {
+    public Timestamp getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(Date finishDate) {
+    public void setFinishDate(Timestamp finishDate) {
         this.finishDate = finishDate;
     }
 }

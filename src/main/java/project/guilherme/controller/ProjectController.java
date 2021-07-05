@@ -21,7 +21,7 @@ public class ProjectController {
     @GetMapping(path = "/projects")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Iterable<ProjectModel> getProjects() {
+    public Iterable<ProjectModel> getAllProjects() {
         return projectRepository.findAll();
     }
 

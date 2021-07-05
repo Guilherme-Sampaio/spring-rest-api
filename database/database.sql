@@ -1,3 +1,11 @@
+USE newproject;
+
+SET character_set_client=utf8;
+SET character_set_connection=utf8;
+SET character_set_results=utf8;
+SET collation_connection=utf8_general_ci;
+SET @@session.explicit_defaults_for_timestamp=on;
+
 CREATE TABLE IF NOT EXISTS users (
 	id INT NOT NULL AUTO_INCREMENT,
 	username VARCHAR(100),
@@ -48,14 +56,14 @@ CREATE TABLE IF NOT EXISTS user_in_project (
     FOREIGN KEY (project_id) REFERENCES projects(id)
 );
 
-INSERT INTO user_in_project (user_id, project_id) VALUES (1, 1);
 INSERT INTO user_in_project (user_id, project_id) VALUES (2, 1);
-INSERT INTO user_in_project (user_id, project_id) VALUES (2, 2);
+INSERT INTO user_in_project (user_id, project_id) VALUES (3, 1);
+INSERT INTO user_in_project (user_id, project_id) VALUES (3, 2);
 
 CREATE TABLE IF NOT EXISTS appointments (
 	id INT NOT NULL AUTO_INCREMENT,
-	start_date DATETIME,
-	finish_date DATETIME,
+	start_date TIMESTAMP,
+	finish_date TIMESTAMP,
 	user_id INT,
 	project_id INT,
 	PRIMARY KEY(id),

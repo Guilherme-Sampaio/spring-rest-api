@@ -1,12 +1,14 @@
 package project.guilherme.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import project.guilherme.model.AppointmentModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import project.guilherme.repository.AppointmentRepository;
+import project.guilherme.service.LoggerService;
 
-@RestController
+@Controller
 public class AppointmentController {
     private final AppointmentRepository appointmentRepository;
 
@@ -16,8 +18,11 @@ public class AppointmentController {
     }
 
     @PostMapping(path = "/appointments")
+    @ResponseBody
     @PreAuthorize("hasRole('ROLE_DEV')")
     public void createAppointment(@RequestBody AppointmentModel appointment) {
+        LoggerService.logger("Guilherme start: " + appointment.getStartDate(), new Exception());
+        LoggerService.logger("Guilherme finish: " + appointment.getFinishDate(), new Exception());
         appointmentRepository.save(appointment);
     }
 
