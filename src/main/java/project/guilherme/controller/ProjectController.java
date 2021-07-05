@@ -8,6 +8,7 @@ import project.guilherme.model.ProjectModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import project.guilherme.repository.ProjectRepository;
+import project.guilherme.service.LoggerService;
 
 @Controller
 public class ProjectController {
@@ -29,6 +30,8 @@ public class ProjectController {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_DEV')")
     public Iterable<ProjectModel> getProjects(@PathVariable Long id) {
-        return projectRepository.findByUserId(id);
+        Iterable<ProjectModel> projects = projectRepository.findByUserId(id);
+        LoggerService.logger("Guilherme project: " + projects);
+        return projects;
     }
 }

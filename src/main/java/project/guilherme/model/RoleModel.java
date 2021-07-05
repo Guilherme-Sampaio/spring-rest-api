@@ -16,6 +16,14 @@ public class RoleModel {
     @Column(length = 20)
     private ERole name;
 
+    @Override
+    public String toString() {
+        return "RoleModel{" +
+                "id=" + id +
+                ", name=" + name +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }

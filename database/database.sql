@@ -5,6 +5,8 @@ SET character_set_connection=utf8;
 SET character_set_results=utf8;
 SET collation_connection=utf8_general_ci;
 SET @@session.explicit_defaults_for_timestamp=on;
+SET GLOBAL time_zone = '+3:00';
+SET @@global.time_zone = '+3:00';
 
 CREATE TABLE IF NOT EXISTS users (
 	id INT NOT NULL AUTO_INCREMENT,
@@ -45,8 +47,8 @@ CREATE TABLE IF NOT EXISTS projects (
 	PRIMARY KEY(id)
 );
 
-INSERT INTO projects (name) VALUES ('projectA');
-INSERT INTO projects (name) VALUES ('projectB');
+INSERT INTO projects (name) VALUES ('Projeto A');
+INSERT INTO projects (name) VALUES ('Projeto B');
 
 CREATE TABLE IF NOT EXISTS user_in_project (
     user_id INT NOT NULL,

@@ -20,10 +20,9 @@ public class AppointmentController {
     @PostMapping(path = "/appointments")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_DEV')")
-    public void createAppointment(@RequestBody AppointmentModel appointment) {
-        LoggerService.logger("Guilherme start: " + appointment.getStartDate(), new Exception());
-        LoggerService.logger("Guilherme finish: " + appointment.getFinishDate(), new Exception());
-        appointmentRepository.save(appointment);
+    public AppointmentModel createAppointment(@RequestBody AppointmentModel appointment) {
+        LoggerService.logger("Guilherme appointment: " + appointment);
+        return appointmentRepository.save(appointment);
     }
 
     @GetMapping(path = "/appointments/user/{id}")

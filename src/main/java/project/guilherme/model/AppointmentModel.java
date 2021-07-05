@@ -29,14 +29,32 @@ public class AppointmentModel {
     @JsonIgnoreProperties({"appointments"})
     private ProjectModel project;
 
+    @Override
+    public String toString() {
+        return "AppointmentModel{" +
+                "id=" + id +
+                ", startDate=" + startDate +
+                ", finishDate=" + finishDate +
+                '}';
+    }
+
     public AppointmentModel() {
 
     }
 
-    public AppointmentModel(Timestamp startDate, Timestamp finishDate, UserModel user, ProjectModel project) {
+    public AppointmentModel(long id, Timestamp startDate, Timestamp finishDate, UserModel user, ProjectModel project) {
+        this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.user = user;
+        this.project = project;
+    }
+
+    public ProjectModel getProject() {
+        return project;
+    }
+
+    public void setProject(ProjectModel project) {
         this.project = project;
     }
 
@@ -46,14 +64,6 @@ public class AppointmentModel {
 
     public void setUser(UserModel user) {
         this.user = user;
-    }
-
-    public ProjectModel getProject() {
-        return project;
-    }
-
-    public void setProject(ProjectModel project) {
-        this.project = project;
     }
 
     public long getId() {
@@ -79,4 +89,5 @@ public class AppointmentModel {
     public void setFinishDate(Timestamp finishDate) {
         this.finishDate = finishDate;
     }
+
 }

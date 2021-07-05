@@ -41,10 +41,32 @@ public class UserModel {
 
     }
 
-    public UserModel(String username, String email, String password) {
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    public UserModel(long id, String username, String email, String password, List<AppointmentModel> appointments, List<ProjectModel> projects, List<RoleModel> roles) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.appointments = appointments;
+        this.projects = projects;
+        this.roles = roles;
+    }
+
+    public List<AppointmentModel> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<AppointmentModel> appointments) {
+        this.appointments = appointments;
     }
 
     public long getId() {
@@ -77,14 +99,6 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<AppointmentModel> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(List<AppointmentModel> appointments) {
-        this.appointments = appointments;
     }
 
     public List<ProjectModel> getProjects() {
